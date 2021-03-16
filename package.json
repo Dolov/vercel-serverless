@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Dolov/vercel-serverless#readme",
   "devDependencies": {
-    "@types/node": "^14.14.35"
+    "@types/node": "^14.14.35",
+    "@vercel/node": "^1.9.1"
   }
 }
