@@ -25,6 +25,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 	if (!q) {
 		response.status(200).send('nothing')
 	}
+	response.setHeader('Access-Control-Allow-Origin', '*')
+	response.setHeader('Access-Control-Allow-Credentials', 'true')
 	const html = await fetchUrlContent(`https://www.npmjs.com/package/${q}`)
 	const $ = cheerio.load(html)
 
