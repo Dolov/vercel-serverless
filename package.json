@@ -20,5 +20,8 @@
   "devDependencies": {
     "@types/node": "^14.14.35",
     "@vercel/node": "^1.9.1"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.5"
   }
 }
