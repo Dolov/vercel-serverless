@@ -1,6 +1,5 @@
 const https = require('https') 
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import cheerio from 'cheerio'
 
 const fetchUrlContent = (url, headers?) => {
   return new Promise((resolve) => {
@@ -27,28 +26,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 	}
 	response.setHeader('Access-Control-Allow-Origin', '*')
 	response.setHeader('Access-Control-Allow-Credentials', 'true')
-	const html = await fetchUrlContent(`https://www.npmjs.com/package/${q}`)
-	const $ = cheerio.load(html)
+	const html = await fetchUrlContent(`https://www.npmjs.com/search/suggestions?q=${q}`)
 
-	console.log('开始解析')
-	const responseJson: {
-		Homepage?: string;
-		Repository?: string;
-		Github1s?: string;
-	} = {
-
-	}
-	$('h3').each(function() {
-		if ($(this).text() === 'Homepage') {
-			const Homepage = $(this).parent().find('a').attr('href')
-			responseJson.Homepage = Homepage
-		}
-
-		if ($(this).text() === 'Repository') {
-			const Repository = $(this).parent().find('a').attr('href')
-			responseJson.Repository = Repository
-			responseJson.Github1s = Repository.replace('github', 'github1s')
-		}
-	})
-  response.status(200).send(responseJson)
+  response.status(200).send(html)
 }
